@@ -13,7 +13,6 @@ const phrases = [
   "Fancy pants"
 ];
 
-
 //GAME FUNCTIONS
 
 function getRandomPhraseAsArray(arr) {
@@ -29,10 +28,11 @@ function addPhraseToDisplay(arr) {
     li.style.marginTop = "10px";
     if (char !== " ") {
       li.className = "letter";
+      ul.appendChild(li);
     } else {
-      li.style.paddingLeft = "10px";
+      li.className = "space";
+      ul.appendChild(li);
     }
-    ul.appendChild(li);
   }
 }
 
@@ -103,19 +103,20 @@ startButton.addEventListener("click", () => {
 
 //Keyboard event handling
 qwerty.addEventListener("click", e => {
-  const key = e.target;
-  key.className = "chosen";
-  if (key.className === "chosen") {
-    key.setAttribute("disabled", "");
-  }
-  const chosenLetter = checkLetter(key);
-  if (chosenLetter === null) {
-    missed++;
-    const heart = document.querySelector(".tries");
-    if (heart) {
-      heart.remove();
+  if (e.target.tagName === "BUTTON") {
+    const key = e.target;
+    key.className = "chosen";
+    if (key.className === "chosen") {
+      key.setAttribute("disabled", "");
     }
+    const chosenLetter = checkLetter(key);
+    if (chosenLetter === null) {
+      missed++;
+      const heart = document.querySelector(".tries");
+      if (heart) {
+        heart.remove();
+      }
+    }
+    checkWin();
   }
-  checkWin();
 });
-
