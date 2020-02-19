@@ -7,13 +7,12 @@ const phrases = [
   "A piece of cake",
   "A fish out of water",
   "All you need is love",
-  "Make my day", 
-  'Fancy-pants'
+  "Make my day",
+  "Fancy pants"
 ];
 
 function getRandomPhraseAsArray(arr) {
   const gamePhrase = arr[Math.floor(Math.random() * arr.length)];
-  console.log(gamePhrase);
   return gamePhrase.toLowerCase().split("");
 }
 
@@ -22,11 +21,11 @@ function addPhraseToDisplay(arr) {
     const ul = phrase.firstElementChild;
     const li = document.createElement("li");
     li.textContent = char;
-    li.style.marginTop = '10px'
+    li.style.marginTop = "10px";
     if (char !== " ") {
       li.className = "letter";
     } else {
-        li.style.paddingLeft = '10px'
+      li.style.paddingLeft = "10px";
     }
     ul.appendChild(li);
   }
@@ -38,7 +37,7 @@ function checkLetter(button) {
   let match = null;
   for (let char of lis) {
     if (letter === char.textContent) {
-      char.className += "   show";
+      char.className += " show";
       match = letter;
     }
   }
@@ -55,13 +54,11 @@ function checkWin() {
     overlay.style.display = "flex";
     overlay.className = "win";
     title.textContent = "You Won!";
-    //RESTARTING THE GAME
     restartGame();
   } else if (missed > 4) {
     overlay.style.display = "flex";
     overlay.className = "lose";
     title.textContent = "You Lost!";
-    //RESTARTING THE GAME
     restartGame();
   }
 }
@@ -92,24 +89,23 @@ qwerty.addEventListener("click", e => {
 });
 
 function restartGame() {
-    const lis = document.querySelectorAll("#phrase ul li");
-    const scoreboard = document.querySelector("#scoreboard ol");
-    const numOfHeartLeft = scoreboard.children.length;
-    for (let li of lis) {
-      li.remove();
-    }
-    for (let i = 0; i < (5-numOfHeartLeft); i++) {
-      const heart = document.createElement("li");
-      heart.className = "tries";
-      heart.innerHTML =
-        '<img src="images/liveHeart.png" height="35px" width="30px"></img>';
-      scoreboard.appendChild(heart);
-    }
+  const lis = document.querySelectorAll("#phrase ul li");
+  const scoreboard = document.querySelector("#scoreboard ol");
+  const numOfHeartLeft = scoreboard.children.length;
+  for (let li of lis) {
+    li.remove();
+  }
+  for (let i = 0; i < 5 - numOfHeartLeft; i++) {
+    const heart = document.createElement("li");
+    heart.className = "tries";
+    heart.innerHTML =
+      '<img src="images/liveHeart.png" height="35px" width="30px"></img>';
+    scoreboard.appendChild(heart);
+  }
 
-    const keys = document.querySelectorAll(".keyrow button");
-    for (let key of keys) {
-      key.classList.remove("chosen");
-      key.disabled = false;
-    }
-
+  const keys = document.querySelectorAll(".keyrow button");
+  for (let key of keys) {
+    key.classList.remove("chosen");
+    key.disabled = false;
+  }
 }
